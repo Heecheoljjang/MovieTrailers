@@ -10,7 +10,6 @@ import UIKit
 class HomeViewController: UIViewController {
 
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var searchButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -18,9 +17,6 @@ class HomeViewController: UIViewController {
         if titleLabel.adjustsFontSizeToFitWidth == false {
             titleLabel.adjustsFontSizeToFitWidth = true
         }
-        
     }
-
-
 }
 
