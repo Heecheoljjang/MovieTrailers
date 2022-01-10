@@ -62,7 +62,22 @@ extension SearchViewController: UITableViewDataSource {
 }
 
 extension SearchViewController: UITableViewDelegate {
-    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let sb = UIStoryboard(name: "Result", bundle: nil)
+        let vc = sb.instantiateViewController(withIdentifier: "ResultView") as! ResultViewController
+        vc.modalPresentationStyle = .fullScreen
+        self.present(vc, animated: true, completion: nil)
+        
+        vc.searchLabel.text = searchTerms[indexPath.row].term
+        
+        SearchAPI.search(searchTerms[indexPath.row].term) { movies in
+            DispatchQueue.main.async {
+                vc.movies = movies
+                vc.resultCollectionView.reloadData()
+            }
+        }
+        
+    }
 }
 
 //SearchBar
@@ -94,14 +109,14 @@ extension SearchViewController: UISearchBarDelegate {
                 self.db.childByAutoId().setValue(["term": searchTerm, "timestamp": timestamp])
             }
         }
-        
-        
     }
 }
 
 class HistoryCell: UITableViewCell {
     @IBOutlet weak var resultLabel: UILabel!
 }
+
+
 
 class SearchAPI {
     static func search(_ searchTerm: String, completion: @escaping ([Movie]) -> Void) {

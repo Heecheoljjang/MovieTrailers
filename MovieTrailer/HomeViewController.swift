@@ -30,16 +30,6 @@ class HomeViewController: UIViewController {
                 
             }
         }
-        
-        DispatchQueue.main.async {
-            FamilyMovie.family { movies in
-                let sb = UIStoryboard(name: "Main", bundle: nil)
-                let vc = sb.instantiateViewController(withIdentifier: "Family") as? FamilyViewController
-
-                vc?.familyMovies = movies
-            }
-        }
-        
     }
     
 }
